@@ -9,6 +9,19 @@ def main():
     getKPIs()
 
 
+@app.errorhandler(400)
+def bad_request(e):
+    return Error.errorMessage(400, "Bad Request! "
+                                   "Please check input json parameters. ")
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return Error.errorMessage(404, "Page not found! "
+                                   "Please check url. "
+                                   "Example: ../players/top?count=11")
+
+
 @app.post("/players/top")
 def getKPIs():
     if request.is_json:
