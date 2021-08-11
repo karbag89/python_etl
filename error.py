@@ -14,8 +14,8 @@ class Error:
     '''Takes error code and error message values, returns error log message.'''
     # -------------------------------------------------------------------------
     # Description :
-    # This function getting error code and error message data, creating and
-    # returning error log message in JSON body.
+    # The 'errorMessage' method getting error code and error message data, 
+    # creating and returning error log message in JSON body.
     #
     # Parameters :
     #     error_code      Error code value.
