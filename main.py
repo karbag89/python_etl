@@ -3,7 +3,6 @@
 # ----------------------------------------------------------------------------
 
 from flask import Flask, request
-from gevent.pywsgi import WSGIServer
 from error import Error
 from controller import Controller
 
@@ -114,5 +113,4 @@ def getKPIs():
 
 
 if __name__ == "__main__":
-    http_server = WSGIServer(('0.0.0.0', 5000), app)
-    http_server.serve_forever()
+    app.run('0.0.0.0', 5000)
