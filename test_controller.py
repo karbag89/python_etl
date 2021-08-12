@@ -2,6 +2,7 @@
 # Python library dependencies
 # ----------------------------------------------------------------------------
 import json
+import time
 
 from controller import Controller
 
@@ -64,6 +65,7 @@ v_data_players = {
 # log information output message for testing.
 v_json = {'game': 'Dota',
           'player_name': 'YrikGood',
+          'task_duration': '5.32 sec',
           'total_games': 10,
           'max_kda': 18.0,
           'min_kda': 0.0,
@@ -89,5 +91,12 @@ def test_getTeamKills():
 # Testing getPlayerKPIs function from controller.py.
 def test_getPlayerKPIs():
     controller_obj = Controller(data, urls)
+    # Task starting time.
+    v_start = time.time()
     v_data = json.loads(controller_obj.getPlayerKPIs())
+    # Task end time.
+    v_end = time.time()
+    # Calculation of task duration value in seconds.
+    v_duration = str('%.2f' % (v_end - v_start)) + " sec"
+    v_json['task_duration'] = v_duration
     assert v_data == v_json
