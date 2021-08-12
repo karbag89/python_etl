@@ -3,6 +3,7 @@
 # ----------------------------------------------------------------------------
 
 from flask import Flask, request
+from gevent.pywsgi import WSGIServer
 from error import Error
 from controller import Controller
 
@@ -19,7 +20,7 @@ def main():
 @app.errorhandler(400)
 def bad_request(e):
     return Error.errorMessage(400, "Bad Request! "
-                                   "Please check input json parameters. ")
+                                   "Please check input JSON parameters.")
 
 
 # Handling error code 404 'Page not found!' response message.
@@ -34,6 +35,13 @@ def page_not_found(e):
 def getKPIs():
     if request.is_json:
         # Getting top 'count' value from user input.
+        v_data = request.get_json()
+        if len(v_data) != 2:
+            return Error.errorMessage(400, "Bad Request! "
+                                           "The JSON request data must only "
+                                           "contain 'account_id' and 'name' "
+                                           "fields. Example: {'account_id': "
+                                           "639740, 'name': 'YrikGood'}")
         try:
             count = int(request.args.get('count'))
         # Handling top 'count' user input value type.
@@ -44,7 +52,7 @@ def getKPIs():
                                            "Example: ../players/top?count=11")
         # Getting player 'accountId' value from user input.
         try:
-            accountId = request.get_json()["account_id"]
+            accountId = v_data["account_id"]
             # Handling player 'accountId' value type.
             if isinstance(accountId, bool):
                 return Error.errorMessage(400, "Bad Request! "
@@ -62,20 +70,21 @@ def getKPIs():
                                                "integer, not a string.")
 
             # Getting player 'name' value from user input.
-            playerName = request.get_json()["name"]
+            playerName = v_data["name"]
             # Handling player 'name' value type.
             if not isinstance(playerName, str):
                 return Error.errorMessage(400, "User name not found! "
-                                               "'name' must be string.")
+                                               "User 'name' must be string.")
             # Handling player 'name' value is empthy or not.
             elif len(playerName) == 0:
                 return Error.errorMessage(404, "User name not found! "
                                                "The 'name' must not be empty "
                                                "string.")
-
-        # Handling api response code 400 which is "Bad Request!".
         except KeyError:
-            return Error.errorMessage(400, "Bad Request!")
+            return Error.errorMessage(400, "Bad Request! "
+                                           "Please check input JSON "
+                                           "parameters such as 'account_id' "
+                                           "and 'name' must be exists.")
 
         # Checking user input top value count.
         if count < 1:
@@ -101,8 +110,9 @@ def getKPIs():
         return Controller(data, urls).getPlayerKPIs()
 
     # Handling request type
-    return Error.errorMessage(415, "Request must be json!")
+    return Error.errorMessage(415, "Request must be JSON!")
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
+    http_server = WSGIServer(('0.0.0.0', 5000), app)
+    http_server.serve_forever()
