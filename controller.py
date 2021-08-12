@@ -4,6 +4,7 @@
 
 import json
 import requests
+import time
 
 from error import Error
 
@@ -88,6 +89,7 @@ class Controller:
             average KDA and KP values also game, player name and total
             game count values.
         '''
+        v_start = time.time()
         v_recent_matches = requests.get(self.url_recentMatches).json()
 
         # Checking the recent matches variable is dict and contain value or
@@ -214,11 +216,16 @@ class Controller:
         v_vars['min_kp'] = str('%.2f' % v_vars.get('min_kp')) + "%"
         v_vars['avg_kp'] = str('%.2f' % v_vars.get('avg_kp')) + "%"
 
+        v_end = time.time()
+        # Calculation of task duration value in seconds.
+        v_duration = str('%.2f' % (v_end - v_start)) + " sec"
+
         # Preparing log information message body.
         v_data_log = {
                         "game": v_game,
                         "player_name": v_player_name,
                         "total_games": v_totoal_games,
+                        "task_duration": v_duration,
                         "max_kda": v_vars.get('max_kda', None),
                         "min_kda": v_vars.get('min_kda', None),
                         "avg_kda": v_vars.get('avg_kda', None),
