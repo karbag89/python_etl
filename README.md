@@ -97,7 +97,7 @@ The application developed with the following tools and services:
 (PEP8) style guide for Python code.
 
 - Note: The pytest library was used for testing.
----
+
 
 ## Notes
 ***
