@@ -12,7 +12,7 @@ floating-point format), like the following example:
 
 {\
 "game": "Dota",\
-"player_name": "YrikGood1",\
+"player_name": "YrikGood",\
 "total_games": 7,\
 "task_duration": "5.75 sec",\
 "max_kda": 18.0,\
@@ -56,7 +56,7 @@ you need to send below POST request with below JSON body:
 
 {\
 "account_id": 639740,\
-"name": "YrikGood1"\
+"name": "YrikGood"\
 }
 
 IP_ADDRESS will be generated from AWS Fargate cluster service.
