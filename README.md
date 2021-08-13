@@ -9,6 +9,7 @@ relevant statistical data regarding said subject.
 3. Application logging the KPIs information of a player, properly
 serialized as JSON messages (where float values represented in double-precision
 floating-point format), like the following example:
+
 {\
 "game": "Dota",\
 "player_name": "YrikGood1",\
@@ -78,19 +79,19 @@ The application developed with the following tools and services:
 ## Project Files
 ***
 1. Python files:
-    * [main.py](#https://github.com/karbag89/python_etl/blob/main/main.py)
-    * [controller.py](#https://github.com/karbag89/python_etl/blob/main/controller.py)
-    * [error.py](#https://github.com/karbag89/python_etl/blob/main/error.py)
-    * [test_controller.py](#https://github.com/karbag89/python_etl/blob/main/test_controller.py)
+    * main.py
+    * controller.py
+    * error.py
+    * test_controller.py
 2. Requirements text file:
-    * [requirements.txt](#https://github.com/karbag89/python_etl/blob/main/requirements.txt)
+    * requirements.txt
 3. Docker files:
-    * [Dockerfile](#https://github.com/karbag89/python_etl/blob/main/Dockerfile)
-    * [.dockerignore](#https://github.com/karbag89/python_etl/blob/main/.dockerignore)
+    * Dockerfile
+    * .dockerignore
 4. Gitlab CI file:
-    * [.gitlab-ci.yml](#https://github.com/karbag89/python_etl/blob/main/.gitlab-ci.yml)
+    * .gitlab-ci.yml
 5. ReadMe file:
-    * [README.md](#https://github.com/karbag89/python_etl#notes)
+    * README.md
 
 - Note. The flake8 library was used for above all Python files to fit the
 (PEP8) style guide for Python code.
